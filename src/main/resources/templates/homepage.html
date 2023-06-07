@@ -7,10 +7,44 @@
     <title>Document</title>
 </head>
 <body data-th-object="${articleList}">
-    <table>
-        <tr data-th-each="article : ${articleList}">
-            <td data-th-text="*{title}"></td>
-        </tr>
-    </table>
+    <h1 style="text-align: center;">Suck my cock</h1>
+        <h2 style="text-align: center;" data-th-if="${success!=null}" data-th-text="${success}"></h2>
+        <div data-th-if="${error != nul}" data-th-text="${error}"></div>
+    <form method="POST" data-th-action="@{/articles}">
+        <button type="submit">Save</button>
+            <table data-th-each="article : ${articleList}" style="border: black solid 1px; margin: auto; padding: 10px;">       
+            <td>
+                <img data-th-src="${article.imageurl}" style="height: 300px; width: auto; align-items: center;" />
+            </td>
+            <tr>
+                <td>ID: <span data-th-text="${article.id}"></span></td>
+            </tr>
+            <tr>
+                <td data-th-text="${article.title}" colspan="4" style="font-weight: bold;"></td>
+            </tr>
+            <tr style="height: 100px;">
+                <td data-th-text="${article.body}" colspan="4"
+                    style="white-space: normal; text-overflow: ellipsis; overflow: hidden;"></td>
+            </tr>
+            <tr></tr>
+            <tr>
+                <td>Categories: <span data-th-text=${article.categories}></span></td>
+            </tr>
+            <tr>
+                <td>Tags: <span data-th-text="${article.tags}" colspan="4"></span></td>
+            </tr>
+            <tr></tr>
+            <tr>
+                <td>Published: <span data-th-text="${article.published_on}"></span></td>
+                <td>
+                    <a data-th-href="${article.url}">Link</a>
+                </td>
+                
+                <td>
+                    <input type="checkbox" value="true" data-th-text="${article.save}"/>Save
+                </td>
+            </tr>
+        </table>
+    </form>
 </body>
 </html>

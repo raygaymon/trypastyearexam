@@ -4,9 +4,12 @@ import java.io.Serializable;
 import java.io.StringReader;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 import jakarta.json.Json;
+import jakarta.json.JsonArrayBuilder;
 import jakarta.json.JsonObject;
+import jakarta.json.JsonObjectBuilder;
 import jakarta.json.JsonReader;
 
 public class Article implements Serializable {
@@ -19,7 +22,9 @@ public class Article implements Serializable {
     private String body;
     private String tags;
     private String categories;
+    private boolean save;
 
+    
     public String getId() {
         return id;
     }
@@ -72,7 +77,20 @@ public class Article implements Serializable {
     public Article() {
     }
 
-    public JsonObject toJSON (){
+    public boolean isSave() {
+        return save;
+    }
+
+    public void setSave(boolean save) {
+        this.save = save;
+    }
+
+    @Override
+    public String toString() {
+        return "Article [id=" + id + ", published_on=" + published_on + ", title=" + title + ", url=" + url
+                + ", imageurl=" + imageurl + ", body=" + body + ", tags=" + tags + ", categories=" + categories + "]";
+    }
+    public JsonObjectBuilder toJSON (){
         return Json.createObjectBuilder()
             .add("id", this.id)
             .add("published_on", this.published_on)
@@ -82,7 +100,7 @@ public class Article implements Serializable {
             .add("body", this.body)
             .add("tags", this.tags)
             .add("categories", this.categories)
-            .build();
+            .add("save", this.save);
 
     }
 
@@ -99,6 +117,28 @@ public class Article implements Serializable {
         a.setBody(jo.getString("body"));
         a.setTags(jo.getString("tags"));
         a.setCategories(jo.getString("categories"));
+        a.setSave(false);
         return a;
     }
+
+    public static Article fromJSON (JsonObject json) {
+
+        Article a = new Article();
+        a.setId(json.getString("id"));
+        a.setPublished_on(json.getJsonNumber("published_on").longValue());
+        a.setTitle(json.getString("title"));
+        a.setUrl(json.getString("url"));
+        a.setImageurl(json.getString("imageurl"));
+        a.setBody(json.getString("body"));
+        a.setTags(json.getString("tags"));
+        a.setCategories(json.getString("categories"));
+        a.setSave(false);
+        return a;
+    }
+
+    public void addToList(List<Article> toAdd) {
+
+        toAdd.add(this);
+    }
+
 }
