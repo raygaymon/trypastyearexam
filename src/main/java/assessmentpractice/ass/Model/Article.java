@@ -22,7 +22,6 @@ public class Article implements Serializable {
     private String body;
     private String tags;
     private String categories;
-    private boolean save;
 
     
     public String getId() {
@@ -77,20 +76,9 @@ public class Article implements Serializable {
     public Article() {
     }
 
-    public boolean isSave() {
-        return save;
-    }
 
-    public void setSave(boolean save) {
-        this.save = save;
-    }
 
-    @Override
-    public String toString() {
-        return "Article [id=" + id + ", published_on=" + published_on + ", title=" + title + ", url=" + url
-                + ", imageurl=" + imageurl + ", body=" + body + ", tags=" + tags + ", categories=" + categories + "]";
-    }
-    public JsonObjectBuilder toJSON (){
+    public JsonObject toJSON (){
         return Json.createObjectBuilder()
             .add("id", this.id)
             .add("published_on", this.published_on)
@@ -100,7 +88,7 @@ public class Article implements Serializable {
             .add("body", this.body)
             .add("tags", this.tags)
             .add("categories", this.categories)
-            .add("save", this.save);
+            .build();
 
     }
 
@@ -117,7 +105,6 @@ public class Article implements Serializable {
         a.setBody(jo.getString("body"));
         a.setTags(jo.getString("tags"));
         a.setCategories(jo.getString("categories"));
-        a.setSave(false);
         return a;
     }
 
@@ -132,7 +119,6 @@ public class Article implements Serializable {
         a.setBody(json.getString("body"));
         a.setTags(json.getString("tags"));
         a.setCategories(json.getString("categories"));
-        a.setSave(false);
         return a;
     }
 

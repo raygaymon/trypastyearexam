@@ -60,4 +60,14 @@ public class NewsService {
         
     }
 
+    public Article getArticleById(String id) {
+
+        return this.repo.getArticleById(id);
+    }
+
+    public List<Article> getAllArticles() {
+        
+        return this.repo.getAllArticles().stream().map(v -> Article.fromJSON(v)).toList();
+    }
+
 }

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body data-th-object="${savedArticles}">
+    <h1 style="text-align: center">Saved Articles</h1>
+    <h3><a href="/">Back</a></h3>
+    <h3 style="text-align: center" data-th-if="${empty != null}" data-th-text="${empty}"></h3>
+    <table data-th-each="article : ${savedArticles}" style="border: black 1px solid">
+        <td>
+            <img data-th-src="${article.imageurl}" style="height: 300px; width: auto; align-items: center;" />
+        </td>
+        <tr>
+            <td>ID: <a data-th-href="@{'/news/' + ${article.Id}}" data-th-text="${article.id}"></a></td>
+        </tr>
+        <tr>
+            <td data-th-text="${article.title}" colspan="4" style="font-weight: bold;"></td>
+        </tr>
+        <tr style="height: 100px;">
+            <td data-th-text="${article.body}" colspan="4"
+                style="white-space: normal; text-overflow: ellipsis; overflow: hidden;"></td>
+        </tr>
+        <tr></tr>
+        <tr>
+            <td>Categories: <span data-th-text="${article.categories}"></span></td>
+        </tr>
+        <tr>
+            <td>Tags: <span data-th-text="${article.tags}" colspan="4"></span></td>
+        </tr>
+        <tr></tr>
+        <tr>
+            <td>Published: <span data-th-text="${article.published_on}"></span></td>
+            <td>
+                <a data-th-href="${article.url}">Link</a>
+            </td>
+    </table>
+</body>
+</html>

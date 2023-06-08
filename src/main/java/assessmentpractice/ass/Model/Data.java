@@ -48,7 +48,6 @@ public class Data implements Serializable{
             Article a = Article.fromJSON(jo.getJsonArray("Data").getJsonObject(i));
             articles.add(a);
         }
-        System.out.println(articles.get(0).isSave());
         d.setArticles(articles);
         return d;
     }

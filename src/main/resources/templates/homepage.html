@@ -6,9 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body data-th-object="${articleList}">
+<body>
     <h1 style="text-align: center;">Suck my cock</h1>
         <h2 style="text-align: center;" data-th-if="${success!=null}" data-th-text="${success}"></h2>
+        <h2 style="text-align: center;" data-th-if="${empty!=null}" data-th-text="${empty}"></h2>
+        <h3><a href="/saved">Saved Articles</a></h3>
         <div data-th-if="${error != nul}" data-th-text="${error}"></div>
     <form method="POST" data-th-action="@{/articles}">
         <button type="submit">Save</button>
@@ -17,7 +19,7 @@
                 <img data-th-src="${article.imageurl}" style="height: 300px; width: auto; align-items: center;" />
             </td>
             <tr>
-                <td>ID: <span data-th-text="${article.id}"></span></td>
+                <td>ID: <a data-th-href="@{'/news/' + ${article.Id}}" data-th-text="${article.id}"></a></td>
             </tr>
             <tr>
                 <td data-th-text="${article.title}" colspan="4" style="font-weight: bold;"></td>
@@ -28,7 +30,7 @@
             </tr>
             <tr></tr>
             <tr>
-                <td>Categories: <span data-th-text=${article.categories}></span></td>
+                <td>Categories: <span data-th-text="${article.categories}"></span></td>
             </tr>
             <tr>
                 <td>Tags: <span data-th-text="${article.tags}" colspan="4"></span></td>
@@ -39,9 +41,9 @@
                 <td>
                     <a data-th-href="${article.url}">Link</a>
                 </td>
-                
                 <td>
-                    <input type="checkbox" value="true" data-th-text="${article.save}"/>Save
+                    <!--send over entire article as json payload-->
+                    <input type="checkbox" data-th-name="${article.id}" data-th-value="${article.toJSON()}" />Save
                 </td>
             </tr>
         </table>
